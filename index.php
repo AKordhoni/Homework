@@ -26,6 +26,22 @@ if (isset($_FILES['userImage'])) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Validate email on the client side
+    echo "<script>
+            $(document).ready(function() {
+                var email = $('#email').val();
+                if (!email || !isValidEmail(email)) {
+                    alert('Invalid email format. Please enter a valid email address.');
+                    return false;
+                }
+            });
+
+            function isValidEmail(email) {
+                var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+          </script>";
+
     handleFormSubmission($conn);
 }
 

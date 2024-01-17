@@ -1,7 +1,6 @@
 <?php
 
 function handleFormSubmission($conn) {
-    // Check if form fields are set and not empty
     if (
         isset($_POST['username']) &&
         isset($_POST['email']) &&
@@ -12,9 +11,8 @@ function handleFormSubmission($conn) {
     ) {
         $username = $_POST['username'];
         $email = $_POST['email'];
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Hash the password
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 
-        // Insert data into the 'users' table
         $sql = "INSERT INTO users (username, email, password) VALUES (?, ?, ?)";
         $stmt = $conn->prepare($sql);
         $stmt->bind_param("sss", $username, $email, $password);
@@ -30,7 +28,6 @@ function handleFormSubmission($conn) {
 }
 
 function getUsers($conn) {
-    // Retrieve all users from the 'users' table
     $sql = "SELECT id, username, email, birthdate, registration_date FROM users";
     $result = $conn->query($sql);
 
@@ -56,7 +53,6 @@ function getUsers($conn) {
 }
 
 function updateUser($conn, $userId, $newUsername) {
-    // Update the username of a user in the 'users' table
     $sql = "UPDATE users SET username = ? WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("si", $newUsername, $userId);
@@ -71,7 +67,6 @@ function updateUser($conn, $userId, $newUsername) {
 }
 
 function deleteUser($conn, $userId) {
-    // Delete a user from the 'users' table
     $sql = "DELETE FROM users WHERE id = ?";
     $stmt = $conn->prepare($sql);
     $stmt->bind_param("i", $userId);

@@ -1,13 +1,11 @@
 <?php
 $servername = "127.0.0.1";
 $username = "root";
-$password = ""; // Leave it as an empty string
+$password = "";
 $dbname = "homeworkdb";
 
-// Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
 
-// Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
